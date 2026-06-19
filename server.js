@@ -10,8 +10,13 @@ const MenuItem = require('./models/MenuItem')
 const bodyParser = require('body-parser');  //body parser converts JSON DATA TO OBJECT and store in BODY
 app.use(bodyParser.json()); 
 
+//Middleware Function
+const logRequest = (req,res,next)=> {
+  console.log(`${new Date().toLocaleString()} Request Made to: ${req.originalUrl}`);
+  next();
+}
 
-app.get('/', (req, res) => {  // now http://localhost:3000/ url
+app.get('/', logRequest, function (req, res) {       // now http://localhost:3000/ url
   res.send('Welcome to my Hotel.... How can i help you? ,We have list of menus')
 })
 
